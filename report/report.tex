@@ -65,12 +65,65 @@
         \paragraph{}
 
 
-	\section{Implementación}
+	\section{McNemar}
 
         \paragraph{}
+		$h_A$ es J48 y  $h_B$ es Naive Bayes
+
+		\center
+		\begin{tabular}{ | p{6cm} | p{6cm} | }
+			\hline
+				Número de ejemplos mal clasificados por $h_A$  y $h_B$ ($n_{00}$) &
+				Número de ejemplos mal clasificados por $h_A$  pero no por $h_B$ ($n_{01}$) \\ \hline
+
+				Número de ejemplos mal clasificados por $h_B$ pero no por $h_A$ ($n_{10}$) &
+				Número de ejemplos bien clasificados por $h_A$  y $h_B$ ($n_{11}$)\\
+			\hline
+		\end{tabular}
 
 
-	\section{Resultados}
+		\[
+		\frac{(|n_{01}-n{10}|-1)^2}{n_{01}+n_{10}}
+		\]
+
+
+		\subsection{SoyBean}
+
+			\paragraph{}
+
+			\center
+			\begin{tabular}{ | c | c | }
+				\hline
+				9 & 9 \\ \hline
+				11 & 204 \\
+				\hline
+			\end{tabular}
+
+
+		\subsection{Vote}
+
+			\paragraph{}
+
+			\begin{tabular}{ | c | c | }
+				\hline
+				4 & 4 \\ \hline
+				13 & 127 \\
+				\hline
+			\end{tabular}
+
+		\subsection{Labor}
+
+			\paragraph{}
+			Puesto que este conjunto de estadísticos es demasiado pequeño
+
+			\begin{tabular}{ | c | c | }
+				\hline
+				2 & 2 \\ \hline
+				0 & 16 \\
+				\hline
+			\end{tabular}
+
+	\section{T-Student}
 
         \paragraph{}
 
