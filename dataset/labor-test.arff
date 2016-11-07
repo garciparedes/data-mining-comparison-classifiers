@@ -1,0 +1,41 @@
+@relation labor-neg-data-weka.filters.unsupervised.instance.Resample-S1-Z66.0-no-replacement-V
+
+@attribute duration numeric
+@attribute wage-increase-first-year numeric
+@attribute wage-increase-second-year numeric
+@attribute wage-increase-third-year numeric
+@attribute cost-of-living-adjustment {none,tcf,tc}
+@attribute working-hours numeric
+@attribute pension {none,ret_allw,empl_contr}
+@attribute standby-pay numeric
+@attribute shift-differential numeric
+@attribute education-allowance {yes,no}
+@attribute statutory-holidays numeric
+@attribute vacation {below_average,average,generous}
+@attribute longterm-disability-assistance {yes,no}
+@attribute contribution-to-dental-plan {none,half,full}
+@attribute bereavement-assistance {yes,no}
+@attribute contribution-to-health-plan {none,half,full}
+@attribute class {bad,good}
+
+@data
+2,5,4,?,none,37,?,?,5,no,11,below_average,yes,full,yes,full,good
+2,4.5,5.8,?,?,35,ret_allw,?,?,yes,11,below_average,?,full,?,full,good
+2,4.5,4,?,?,40,?,?,2,no,10,below_average,no,half,?,half,bad
+2,2.5,2.5,?,?,38,empl_contr,?,?,?,10,average,?,?,?,?,bad
+2,4.6,4.6,?,tcf,38,?,?,?,?,?,?,yes,half,?,half,good
+2,4,5,?,none,40,none,?,3,no,10,below_average,no,none,?,none,bad
+2,5.7,4.5,?,none,40,ret_allw,?,?,?,11,average,yes,full,yes,full,good
+2,4.5,4.5,?,tcf,?,?,?,?,yes,10,below_average,yes,none,?,half,good
+2,2.5,3,?,tcf,40,none,?,?,?,11,below_average,?,?,yes,?,bad
+1,5.7,?,?,none,40,empl_contr,?,4,?,11,generous,yes,full,?,?,good
+3,3.5,4,4.6,none,36,?,?,3,?,13,generous,?,?,yes,full,good
+2,2.5,2.5,?,tc,39,empl_contr,?,?,?,12,average,?,?,yes,?,bad
+3,2,2.5,2.1,tc,40,none,2,1,no,10,below_average,no,half,yes,full,bad
+3,3.5,4,5.1,tcf,37,?,?,4,?,13,generous,?,full,yes,full,good
+1,3,?,?,none,36,?,?,10,no,11,generous,?,?,?,?,good
+2,7,5.3,?,?,?,?,?,?,?,11,?,yes,full,?,?,good
+2,2,3,?,none,38,empl_contr,?,?,yes,12,generous,yes,none,yes,full,bad
+1,2.1,?,?,tc,40,ret_allw,2,3,no,9,below_average,yes,half,?,none,bad
+1,2,?,?,none,38,none,?,?,yes,11,average,no,none,no,none,bad
+2,4,5,?,tcf,35,?,13,5,?,15,generous,?,?,?,?,good
