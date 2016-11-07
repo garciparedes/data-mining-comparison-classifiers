@@ -1,0 +1,21 @@
+Tester:     weka.experiment.PairedTTester -G 4,5,6 -D 1 -R 2 -S 0.05 -result-matrix "weka.experiment.ResultMatrixPlainText -mean-prec 2 -stddev-prec 2 -col-name-width 0 -row-name-width 25 -mean-width 0 -stddev-width 0 -sig-width 0 -count-width 5 -print-col-names -print-row-names -enum-col-names"
+Analysing:  Percent_correct
+Datasets:   3
+Resultsets: 2
+Confidence: 0.05 (two tailed)
+Sorted by:  -
+Date:       11/7/16 8:45 PM
+
+
+Dataset                   (1) trees.J4 | (2) bayes
+--------------------------------------------------
+labor-neg-data           (100)   78.60 |   93.57 v
+soybean                  (100)   91.78 |   92.94 v
+vote                     (100)   96.57 |   90.02 *
+--------------------------------------------------
+                               (v/ /*) |   (2/0/1)
+
+
+Key:
+(1) trees.J48 '-C 0.25 -M 2' -217733168393644444
+(2) bayes.NaiveBayes '' 5995231201785697655
