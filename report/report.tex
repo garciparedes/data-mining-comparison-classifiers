@@ -101,13 +101,7 @@
 
 
 		\paragraph{}
-		La hipótesis nula que se utiliza es que los dos clasificadores tengan la misma tasa de error,es decir $n_{01} = n_{10}$. Por tanto, para rechazar dicha hipótesis el valor calculado por el estadístico debe ser mayor que $\chi^2_{1,0.95} = 3.841459$. Para que los resultados de este test sean confiables $n_{01} + n_{10} > 25$.
-
-		\begin{itemize}
-			\item \emph{Soybean}: $\frac{(|9-11|-1)^2}{9+11} = 0.05$ por lo que no rechazamos la hipótesis.
-			\item \emph{Vote}: $\frac{(|4-13|-1)^2}{4+13} = 3.76470588235$ por lo que no rechazamos la hipótesis (por poco).
-			\item \emph{Labor}: $\frac{(|0-2|-1)^2}{0+2} = 0.5$ por lo que no no rechazamos la hipótesis.
-		\end{itemize}
+		La hipótesis nula que se utiliza es que los dos clasificadores tengan la misma tasa de error,es decir $n_{01} = n_{10}$. Por tanto, para rechazar dicha hipótesis el valor calculado por el estadístico debe ser mayor que $\chi^2_{1,0.95} = 3.841459$. Para que los resultados de este test sean confiables $n_{01} + n_{10} > 25$. Este test tiene un bajo error Tipo 1 y un alto error Tipo 2, lo que se traduce en aceptar la hipótesis de igualdad de clasificadores cuando en realidad no lo son.
 
 
 		\paragraph{}
@@ -148,7 +142,13 @@
 		\end{table}
 
 		\paragraph{}
-		Como vemos, ninguno de los resultados cumple la condición de confiabilidad $n_{01} + n_{10} > 25$. A pesar de ello procederemos a realizar el test pero teniendo en dicho factor a la hora de analizar los resultados obtenidos.
+		Como vemos, ninguno de los resultados cumple la condición de confiabilidad $n_{01} + n_{10} > 25$. A pesar de ello procederemos a realizar el test pero teniendo en dicho factor a la hora de analizar los resultados obtenidos:
+
+		\begin{itemize}
+			\item \emph{Soybean}: $\frac{(|9-11|-1)^2}{9+11} = 0.05$ por lo que no rechazamos la hipótesis.
+			\item \emph{Vote}: $\frac{(|4-13|-1)^2}{4+13} = 3.76470588235$ por lo que no rechazamos la hipótesis (por poco).
+			\item \emph{Labor}: $\frac{(|0-2|-1)^2}{0+2} = 0.5$ por lo que no no rechazamos la hipótesis.
+		\end{itemize}
 
 
 	\section{Test de Student}
@@ -157,7 +157,7 @@
 		El test de Student se utiliza cuando si que es posible realizar varias ejecucciones del test. En este caso, el test si que es paramétrico. Al igual que en el caso anterior, lo que se pretende probar es que las tasas de error no son significativamente diferentes. No se conoce la varianza pero se estima que la media sigue una distribución t-student.
 
 		\paragraph{}
-		El estadístico utilizado en este test es $t = \frac{\overline{d}}{\sqrt{\frac{S^2_d}{k x R}}}$ donde $\overline{d} = \overline{x} - \overline{y}$. siendo $x$ e $y$ cada una de los conjuntos de datos, $k$ el número de muestras y $R$ el de repeticiones.
+		El estadístico utilizado en este test es $t = \frac{\overline{d}}{\sqrt{\frac{S^2_d}{k x R}}}$ donde $\overline{d} = \overline{x} - \overline{y}$. siendo $x$ e $y$ cada una de los conjuntos de datos, $k$ el número de muestras y $R$ el de repeticiones. Este test tiene un error Tipo 1 aceptable y un bajo error Tipo 2, lo que se traduce en rechazar la hipótesis de igualdad de clasificadores cuando en realidad lo son.
 
 		\paragraph{}
 		Para que el test sea válido los conjuntos de datos deben ser independientes entre si, pero dado que en la práctica no se dispone de ello se suele utilizar CrossValidation para tratar de obtenerlos. A este test se le puede aplicar una heurística (suma de una constante (instancias de prueba/instancias de entrenamiento)) para tratar de mejorar su precisión, a lo cual se denomina corrección.
@@ -198,4 +198,7 @@
 
 		\paragraph{}
 		Las celdas que se muestran en blanco en la tabla representan los casos en los cuales la hipótesis nula no ha sido rechazada, es decir, cuando la tasa de error de ambos clasificadores no es significativamente diferente. En el caso del test de McNemar el resultado no nos proporcionó independencia en cuanto a las tasas de error, pero debemos recordar que el conjunto de datos era demasiado pequeño para poder asegurarlo con un alto grado de confianza (En el caso de \emph{Vote} estuvo a punto de permitir que se rechazara la hipótesis nula por lo que habría dado la victoria a J48).
+
+		\paragraph{}
+		Por último, desde la perspectiva de rendimiento del test, el que da resultados en todos los casos es Student con Repetición, mientras que el test de McNemar no nos proporciona resultados confiables en ningún caso. Una causa de este suceso puede ser debido al tamaño de los conjuntos de datos.
 \end{document}
