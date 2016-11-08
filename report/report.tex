@@ -13,6 +13,7 @@
 
 \usepackage{graphicx}
 \graphicspath{ {images/} }
+\usepackage{capt-of}% or \usepackage{caption}
 
 \usepackage{abstract}
 \renewcommand{\abstractnamefont}{\normalfont\bfseries}
@@ -50,20 +51,20 @@
 	\thispagestyle{fancy} % All pages have headers and footers
 
 %-------------------------------------------------------------------------------
-%	ABSTRACT
-%-------------------------------------------------------------------------------
-
-	\begin{abstract}
-		\noindent
-	\end{abstract}
-
-%-------------------------------------------------------------------------------
 %	TEXT
 %-------------------------------------------------------------------------------
 
 	\section{Introducción}
         \paragraph{}
+		La práctica consiste en la evaluación de dos algoritmos de clasificación aplicando los tests de McNemar y Student. Los algoritmos a examinar son los siguientes:
 
+		\begin{itemize}
+
+			\item \textbf{J48}: es un algoritmo cuya función es generar un árbol de decisión. Su nombre original es \emph{C4.5} pero la implementación de Weka se denomina \emph{J48}. Para generar el árbol de decisión el árbol basa la selección de atributos en cada nodo según la entropía de los mismos con respecto a la clases en la que se desea clasificar las muestras. Es por tanto un algoritmo de aprendizaje supervisado.
+
+			\item \textbf{Naive Bayes}: es un algoritmo de clasificación probabilístico basado en el teorema de Bayes y algunas hipótesis adicionales que facilitan la simplificación del problema. Estas hipótesis presuponen la independencia entre variables, de ahí es de donde proviene el apelativo \emph{naive (ingenuo)} ya que esta presuposición no siempre es cierta. Es un clasificador que utiliza aprendizaje supervisado y utiliza el método de máxima verosimilitud
+
+		\end{itemize}
 
 	\section{Test de McNemar: HoldOut de $2/3$}
 
@@ -89,50 +90,38 @@
 		\]
 
 
-		\subsection{Soybean}
-
-			\paragraph{}
-
-			\paragraph{}
-			\begin{center}
+		\begin{table}[ht]
+			\begin{minipage}[b]{0.3\linewidth}
+				\centering
 				\begin{tabular}{ | c | c | }
 					\hline
 					9 & 9 \\ \hline
 					11 & 204 \\
 					\hline
 				\end{tabular}
-			\end{center}
-
-
-		\subsection{Vote}
-
-			\paragraph{}
-
-			\paragraph{}
-			\begin{center}
+				\caption{Soybean}
+			\end{minipage}\hfill
+			\begin{minipage}[b]{0.3\linewidth}
+				\centering
 				\begin{tabular}{ | c | c | }
 					\hline
 					4 & 4 \\ \hline
 					13 & 127 \\
 					\hline
 				\end{tabular}
-			\end{center}
-
-		\subsection{Labor}
-
-			\paragraph{}
-			Puesto que este conjunto de estadísticos es demasiado pequeño
-
-			\paragraph{}
-			\begin{center}
+				\caption{Vote}
+			\end{minipage}\hfill
+			\begin{minipage}[b]{0.3\linewidth}
+				\centering
 				\begin{tabular}{ | c | c | }
 					\hline
 					2 & 2 \\ \hline
 					0 & 16 \\
 					\hline
 				\end{tabular}
-			\end{center}
-
+				\caption{Labor}
+			\end{minipage}
+		\end{table}
 
 	\section{Test de Student: Cross Validation sin repetición}
 
