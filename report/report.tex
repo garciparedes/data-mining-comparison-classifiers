@@ -66,10 +66,25 @@
 
 		\end{itemize}
 
-	\section{Test de McNemar: HoldOut de $2/3$}
+		\paragraph{}
+		Denominaremos $h_A$ al clasificador J48 y $h_B$ a Naive Bayes.
 
-        \paragraph{}
-		$h_A$ es J48 y $h_B$ es Naive Bayes
+		\paragraph{}
+		Los conjuntos de datos que se han utilizado en esta comparación son los siguientes:
+
+		\begin{itemize}
+			\item \textbf{Soybean}: 683 muestras de 35 atributos y 19 clases.
+			\item \textbf{Vote}: 435 muestras de 16 atributos y 2 clases.
+			\item \textbf{Labor}: 57 muestras de 16 atributos y 2 clases.
+		\end{itemize}
+
+	\section{Test de McNemar}
+
+		\paragraph{}
+		El test de McNemar es un test no paramétrico, es decir, no asume ninguna distribución subyacente en el conjunto de datos. Este test se utiliza cuando tan solo se puede realizar una única ejecucción. Se basa en un test $\chi^2$ con 1 grado de libertad y un $95\%$ de confianza.
+
+		\paragraph{}
+		Se utiliza como estadístico $\frac{(|n_{01}-n{10}|-1)^2}{n_{01}+n_{10}}$  siendo cada una de las variables lo indicado en la siguiente tabla:
 
 		\paragraph{}
 		\begin{center}
@@ -85,9 +100,18 @@
 		\end{center}
 
 
-		\[
-		\frac{(|n_{01}-n{10}|-1)^2}{n_{01}+n_{10}}
-		\]
+		\paragraph{}
+		La hipótesis nula que se utiliza es que los dos clasificadores tengan la misma tasa de error,es decir $n_{01} = n_{10}$. Por tanto, para rechazar dicha hipótesis el valor calculado por el estadístico debe ser mayor que $\chi^2_{1,0.95} = 3.841459$. Para que los resultados de este test sean confiables $n_{01} + n_{10} > 25$.
+
+		\begin{itemize}
+			\item \emph{Soybean}: $\frac{(|9-11|-1)^2}{9+11} = 0.05$ por lo que no rechazamos la hipótesis.
+			\item \emph{Vote}: $\frac{(|4-13|-1)^2}{4+13} = 3.76470588235$ por lo que no rechazamos la hipótesis (por poco).
+			\item \emph{Labor}: $\frac{(|0-2|-1)^2}{0+2} = 0.5$ por lo que no no rechazamos la hipótesis.
+		\end{itemize}
+
+
+		\paragraph{}
+		Para realizar este test se debe tener 2 particiones en el conjunto de muestras, una destinada a la fase de entrenamiento y otra a la de test. El método utilizado en esta comparación es un \textbf{HoldOut de $2/3$} utilizando las misma particiones para los dos clasificadores. Las tablas para realizar el test de McNemar con cada conjunto de datos son las siguientes siendo $h_A = $ J48 y $h_B = $ Naive Bayes:
 
 
 		\begin{table}[ht]
@@ -123,30 +147,55 @@
 			\end{minipage}
 		\end{table}
 
-	\section{Test de Student: Cross Validation sin repetición}
+		\paragraph{}
+		Como vemos, ninguno de los resultados cumple la condición de confiabilidad $n_{01} + n_{10} > 25$. A pesar de ello procederemos a realizar el test pero teniendo en dicho factor a la hora de analizar los resultados obtenidos.
 
-        \paragraph{}
 
-	\section{Test de Student: Cross Validation con repetición}
+	\section{Test de Student}
 
-	        \paragraph{}
+		\paragraph{}
+		El test de Student se utiliza cuando si que es posible realizar varias ejecucciones del test. En este caso, el test si que es paramétrico. Al igual que en el caso anterior, lo que se pretende probar es que las tasas de error no son significativamente diferentes. No se conoce la varianza pero se estima que la media sigue una distribución t-student.
+
+		\paragraph{}
+		El estadístico utilizado en este test es $t = \frac{\overline{d}}{\sqrt{\frac{S^2_d}{k x R}}}$ donde $\overline{d} = \overline{x} - \overline{y}$. siendo $x$ e $y$ cada una de los conjuntos de datos, $k$ el número de muestras y $R$ el de repeticiones.
+
+		\paragraph{}
+		Para que el test sea válido los conjuntos de datos deben ser independientes entre si, pero dado que en la práctica no se dispone de ello se suele utilizar CrossValidation para tratar de obtenerlos. A este test se le puede aplicar una heurística (suma de una constante) para tratar de mejorar su precisión, a lo cual se denomina corrección.
+
+		\paragraph{}
+		Para la realización de esta comparación se ha utlizado \textbf{CrossValidation de 10 particiones} y se ha realizado el test de student de las siguientes formas:
+
+		\begin{itemize}
+			\item Test de Student sin repetición
+			\item Test de Student sin repetición corregido
+			\item Test de Student con 10 repeticiones
+			\item Test de Student con 10 repeticiones corregido
+		\end{itemize}
+
 	\section{Resultados}
 
 		\paragraph{}
 		Los resultados obtenidos según los test realizados con los conjuntos de datos y los tipos de test son los siguientes:
 
-		\paragraph{}
+		\hfill
 		\begin{center}
 			\begin{tabular}{ | c || c | c | c | c | c | }
 				\hline
 				 			& McNemar	& Student	& Student (C) 	& Student rep. 	& Student rep.(C) 	\\ \hline \hline
-				Soybean 	& J48 		& NB		& NB			& NB			& NB			 	\\ \hline
-				Vote 		& J48 		& J48		& J48			& J48			& J48				\\ \hline
-				Labor 		& NB 		& NB		& NB			& NB			& NB				\\
+				Soybean 	& -- 		& --		& --			& NB			& --			 	\\ \hline
+				Vote 		& -- 		& J48		& J48			& J48			& J48				\\ \hline
+				Labor 		& -- 		& NB		& --			& NB			& NB				\\
 				\hline
 			\end{tabular}
 		\end{center}
 
 
+		\paragraph{}
+		Como se puede apreciar en la tabla de resultados, la mayoría de los test proporcionan ventaja al mismo clasificador para el mismo conjunto de datos. A pesar de ello, el conjunto de datos \emph{Soybean} es el que más dificultades genera a los tests a la hora de detectar cuál de los clasificadores presenta mejores resultados. Probablemente la causa de ello sea debida a la cantidad de clases que tiene este conjunto de datos con respecto a los otros (19 frente a 2).
 
+		\paragraph{}
+		En cuanto a los conjuntos \emph{Vote} y \emph{Labor} se puede ver una tendendencia clara por los distintos tests a un determinado algoritmo de clasificación. Además tiene sentido la victoria de cada clasificador en cada caso, ya que Naive Bayes (por ser probabilista) se comporta mejor con atributos numéricos (\emph{Labor}) y J48 (por ser jerárquico) para atributos binarios (\emph{Vote})
+
+		\paragraph{}
+		Las celdas que se muestran en blanco en la tabla representan los casos en los cuales la hipótesis nula no ha sido rechazada, es decir, cuando la tasa de error de ambos clasificadores no es significativamente diferente. En el caso del test de McNemar el resultado no nos proporcionó independencia en cuanto a las tasas de error, pero debemos recordar que el conjunto de datos era demasiado pequeño para poder asegurarlo con un alto grado de confianza (En el caso de \emph{Vote} estuvo a punto de permitir que se rechazara la hipótesis nula por lo que habría dado la victoria a J48).
 \end{document}
